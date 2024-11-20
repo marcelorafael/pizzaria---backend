@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
+import "express-async-errors";
 
 import { router } from './routes';
 
@@ -8,4 +9,17 @@ app.use(express.json());
 
 app.use(router);
 
-app.listen(3333, () => console.log("servidor online!!!"));
+app.use((err: Error, _req: Request, res: Response, next: NextFunction): any => {
+    if(err instanceof Error){
+        return res.status(400).json({
+            error: err.message
+        })
+    }
+
+    return res.status(500).json({
+        status: 'error',
+        message: 'Internal server error.'
+    })
+});
+
+app.listen(3333, () => console.log("servidor online!!! "));
