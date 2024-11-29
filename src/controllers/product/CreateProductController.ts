@@ -3,22 +3,30 @@ import { Request, Response } from "express";
 import { CreateProductService } from "../../services/product/CreateProductService";
 
 class CreateProductController {
-    async handle(req: Request, res: Response){
-        const {name, price, description, category_id} = req.body
-
-        let banner =  ""
+    async handle(req: Request, res: Response) {
+        const { name, price, description, category_id } = req.body
 
         const createProductService = new CreateProductService()
 
-        const product = await createProductService.execute({
-            name,
-            price,
-            description,
-            banner,
-            category_id
-        })
+        if (!req?.file) {
+            throw new Error("Error upoad file.");
+        } else {
 
-        return res.json(product)
+            const { originalname, filename: banner } = req.file
+
+
+            const product = await createProductService.execute({
+                name,
+                price,
+                description,
+                banner: banner,
+                category_id
+            })
+
+            return res.json(product)
+        }
+
+
     }
 }
 

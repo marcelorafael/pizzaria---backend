@@ -1,4 +1,5 @@
 import express, { Router, Request, Response } from 'express'
+import multer from 'multer';
 
 import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController';
@@ -8,8 +9,10 @@ import { CreateProductController } from './controllers/product/CreateProductCont
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
 import { ListCategoryController } from './controllers/cetegory/ListCategoryController';
+import uploadConfig from "./config/multer"
 
 const router = Router();
+const upload = multer(uploadConfig.upload("./tmp"));
 
 // ROUTES USER
 router.post("/users", new CreateUserController().handle as any)
@@ -22,6 +25,6 @@ router.post("/category", isAuthenticated as any, new CreateCategoryController().
 router.get("/listCategory", isAuthenticated as any, new ListCategoryController().handle as any)
 
 // ROUTES PRODUCTS
-router.post("/product", isAuthenticated as any, new CreateProductController().handle as any)
+router.post("/product", isAuthenticated as any, upload.single("file"),new CreateProductController().handle as any)
 
 export { router }
