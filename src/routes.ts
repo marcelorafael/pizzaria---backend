@@ -6,6 +6,7 @@ import { AuthUserController } from './controllers/user/AuthUserController';
 import { DetailUserController } from './controllers/user/DetailUserControler';
 import { CreateCategoryController } from './controllers/cetegory/CreateCategoryController';
 import { CreateProductController } from './controllers/product/CreateProductController';
+import { ListByCategoryController } from './controllers/product/ListByCategoryController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
 import { ListCategoryController } from './controllers/cetegory/ListCategoryController';
@@ -26,5 +27,6 @@ router.get("/listCategory", isAuthenticated as any, new ListCategoryController()
 
 // ROUTES PRODUCTS
 router.post("/product", isAuthenticated as any, upload.single("file"),new CreateProductController().handle as any)
+router.get("/category/product", isAuthenticated as any, new ListByCategoryController().handle as any)
 
 export { router }
