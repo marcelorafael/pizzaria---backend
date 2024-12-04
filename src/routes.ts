@@ -1,5 +1,6 @@
 import express, { Router, Request, Response } from 'express'
 import multer from 'multer';
+import uploadConfig from "./config/multer"
 
 import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController';
@@ -7,10 +8,10 @@ import { DetailUserController } from './controllers/user/DetailUserControler';
 import { CreateCategoryController } from './controllers/cetegory/CreateCategoryController';
 import { CreateProductController } from './controllers/product/CreateProductController';
 import { ListByCategoryController } from './controllers/product/ListByCategoryController';
+import { ListCategoryController } from './controllers/cetegory/ListCategoryController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
-import { ListCategoryController } from './controllers/cetegory/ListCategoryController';
-import uploadConfig from "./config/multer"
+
 
 const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"));
