@@ -12,6 +12,7 @@ import { ListCategoryController } from './controllers/cetegory/ListCategoryContr
 import { CreateOrderController } from './controllers/order/CreateOrderController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
+import { RemoveOrderController } from './controllers/order/RemoveOrderController';
 
 
 const router = Router();
@@ -33,5 +34,6 @@ router.get("/category/product", isAuthenticated as any, new ListByCategoryContro
 
 // ROUTES ORDER
 router.post("/order", isAuthenticated as any, new CreateOrderController().handle as any);
+router.delete("/order", isAuthenticated as any, new RemoveOrderController().handle as any);
 
 export { router }
